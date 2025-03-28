@@ -1,8 +1,13 @@
 from flask import Blueprint, request, jsonify
 from db import get_db_connection
 import bcrypt  # For passordhashing
+import jwt
+import datetime
 
 user_routes = Blueprint('users', __name__)
+
+# Hemmelig nøkkel for å signere JWT (Bør lagres sikkert, f.eks. i .env-fil)
+SECRET_KEY = "supersecretkey"
 
 # POST: Registrer ny bruker
 @user_routes.route('/users/register', methods=['POST'])
@@ -46,3 +51,39 @@ def get_users():
     users = cursor.fetchall()
     conn.close()
     return jsonify(users)
+
+# POST: Logg inn bruker og returner JWT-token
+@user_routes.route('/users/login', methods=['POST'])
+def login_user():
+    try:
+        data = request.json
+        required_fields = ['email', 'password']
+
+        if not all(field in data for field in required_fields):
+            return jsonify({'error': 'Missing email or password'}), 400
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Sjekk om brukeren finnes i databasen
+        cursor.execute("SELECT * FROM Users WHERE email = %s", (data['email'],))
+        user = cursor.fetchone()
+        conn.close()
+
+        if not user:
+            return jsonify({'error': 'Invalid email or password'}), 401
+
+        # Verifiser passordet
+        if not bcrypt.checkpw(data['password'].encode('utf-8'), user['password_hash'].encode('utf-8')):
+            return jsonify({'error': 'Invalid email or password'}), 401
+
+        # Generer JWT-token
+        token = jwt.encode({
+            'user_id': user['user_id'],
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token utløper etter 1 time
+        }, SECRET_KEY, algorithm="HS256")
+
+        return jsonify({'token': token}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
