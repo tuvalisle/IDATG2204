@@ -60,6 +60,8 @@ def create_order():
         return jsonify({'error': str(e)}), 500
 
 
+
+
 @order_routes.route('/orders', methods=['GET'])
 @token_required
 def get_orders():
@@ -72,3 +74,65 @@ def get_orders():
     
     conn.close()
     return jsonify(orders)
+
+
+# PUT: Oppdater ordrestatus
+@order_routes.route('/orders/<int:order_id>', methods=['PUT'])
+@token_required
+def update_order(order_id):
+    try:
+        data = request.json
+        if 'status' not in data:
+            return jsonify({'error': 'Missing status field'}), 400
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Sjekk om ordren tilhører brukeren
+        cursor.execute("SELECT user_id FROM Orders WHERE order_id = %s", (order_id,))
+        order = cursor.fetchone()
+        if not order:
+            return jsonify({'error': 'Order not found'}), 404
+        if order[0] != request.user_id:
+            return jsonify({'error': 'Unauthorized to update this order'}), 403
+
+        # Oppdater status
+        cursor.execute("UPDATE Orders SET status = %s WHERE order_id = %s", (data['status'], order_id))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Order updated successfully'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# DELETE: Slett en ordre
+@order_routes.route('/orders/<int:order_id>', methods=['DELETE'])
+@token_required
+def delete_order(order_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Sjekk om ordren eksisterer og tilhører brukeren
+        cursor.execute("SELECT user_id, status FROM Orders WHERE order_id = %s", (order_id,))
+        order = cursor.fetchone()
+        if not order:
+            return jsonify({'error': 'Order not found'}), 404
+        if order[0] != request.user_id:
+            return jsonify({'error': 'Unauthorized to delete this order'}), 403
+        if order[1] != 'pending':
+            return jsonify({'error': 'Only pending orders can be deleted'}), 400
+
+        # Slett ordre og tilhørende OrderItem-poster
+        cursor.execute("DELETE FROM OrderItem WHERE order_id = %s", (order_id,))
+        cursor.execute("DELETE FROM Orders WHERE order_id = %s", (order_id,))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Order deleted successfully'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
