@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from db import get_db_connection
+from ElectroMart.backend.db import get_db_connection
 import bcrypt  # For passordhashing
 import jwt
 import datetime
