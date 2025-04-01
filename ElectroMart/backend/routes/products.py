@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
-from ElectroMart.backend.db import get_db_connection
+#from ElectroMart.backend.db import get_db_connection
+from db import get_db_connection
+
 
 product_routes = Blueprint('products', __name__)
 
