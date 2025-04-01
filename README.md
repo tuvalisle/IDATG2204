@@ -39,6 +39,13 @@ Importer skjemaet:
 mysql -u root -p electromart < database.sql
 ```
 
+## 📦 Import database (for dev setup)
+
+1. Open phpMyAdmin or terminal
+2. Create a new database named `electromart`
+3. Import the file `backend/db/electromart.sql`
+
+
 ### 4️⃣ **Start Flask-serveren**
 ```bash
 python app.py
