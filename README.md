@@ -38,6 +38,15 @@ Importer skjemaet:
 ```bash
 mysql -u root -p electromart < database.sql
 ```
+👉 Import for andre:
+De som skal importere gjør dette:
+
+Åpne phpMyAdmin
+Opprett en ny tom database med samme navn (electromart)
+Gå til Import
+Velg .sql-filen du sendte
+Klikk "Utfør"
+
 
 ## 📦 Import database (for dev setup)
 
