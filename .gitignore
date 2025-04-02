@@ -2,6 +2,7 @@
 venv/
 ElectroMart/backend/venv/
 ElectroMart/frontend/venv/
+.DS_Store
 
 # Ignorer Python cache
 __pycache__/
