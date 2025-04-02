@@ -2,6 +2,8 @@
 venv/
 ElectroMart/backend/venv/
 ElectroMart/frontend/venv/
+electromart-node/node_modules/
+electromart-frontend/node_modules/
 .DS_Store
 
 # Ignorer Python cache

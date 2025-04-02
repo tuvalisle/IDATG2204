@@ -2,6 +2,7 @@ const db = require('../db');  // Import the database connection
 
 // Get all products from the database
 exports.getProducts = (req, res) => {
+  console.log('Fetching products...');
   // Query the database to retrieve all products
   db.query('SELECT * FROM Product', (err, results) => {
     if (err) {
