@@ -17,7 +17,7 @@ app.register_blueprint(user_routes)
 app.register_blueprint(order_routes)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
 
 
 app.register_blueprint(user_routes)

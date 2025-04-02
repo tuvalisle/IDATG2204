@@ -7,7 +7,7 @@ function ProductsPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/products")  // Fetch products from backend
+      .get("http://localhost:8080/products")  // Fetch products from backend
       .then((response) => {
         setProducts(response.data);  // Update products state with the data
       })

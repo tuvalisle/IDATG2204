@@ -8,6 +8,7 @@ product_routes = Blueprint('products', __name__)
 # GET: Hent alle produkter
 @product_routes.route('/products', methods=['GET'])
 def get_products():
+    print("Fetching products...")
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM Product")
