@@ -1,0 +1,8 @@
+# Ignorer alle virtuelle miljø
+venv/
+ElectroMart/backend/venv/
+
+# Ignorer Python cache
+__pycache__/
+*.pyc
+
