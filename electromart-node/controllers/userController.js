@@ -46,9 +46,9 @@ exports.register = (req, res) => {
 };
 
 
-/// Login a user
+// Login a user
 exports.login = (req, res) => {
-  console.log('Login request received:', req.body); // Log the request body to check the incoming data
+  console.log('Login request received:', req.body); // Log the incoming data
 
   const { email, password } = req.body;
 
@@ -65,7 +65,6 @@ exports.login = (req, res) => {
     }
 
     if (results.length === 0) {
-      console.log('No user found with this email');
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
