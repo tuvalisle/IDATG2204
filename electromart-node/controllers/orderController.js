@@ -194,3 +194,55 @@ exports.createOrder = async (req, res) => {
     res.status(500).json({ error: 'Error placing order' });
   }
 };
+
+// Fetch user's orders and their items
+exports.getUserOrders = (req, res) => {
+    const userId = req.query.user_id; // Get user_id from query params
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+  
+    const query = `
+      SELECT o.order_id, o.order_date, o.total_amount, o.status, 
+             oi.order_item_id, oi.product_id, oi.quantity, oi.subtotal, 
+             p.name as product_name, p.price as product_price
+      FROM orders o
+      LEFT JOIN orderitem oi ON o.order_id = oi.order_id
+      LEFT JOIN product p ON oi.product_id = p.product_id  -- Correct table name 'product'
+      WHERE o.user_id = ?
+    `;
+  
+    db.query(query, [userId], (err, results) => {
+      if (err) {
+        console.error('Error fetching orders and order items:', err);
+        return res.status(500).json({ error: 'Error fetching orders and order items' });
+      }
+  
+      const orders = [];
+  
+      results.forEach(row => {
+        let order = orders.find(order => order.order_id === row.order_id);
+        if (!order) {
+          order = {
+            order_id: row.order_id,
+            order_date: row.order_date,
+            total_amount: row.total_amount,
+            status: row.status,
+            items: [],
+          };
+          orders.push(order);
+        }
+  
+        order.items.push({
+          order_item_id: row.order_item_id,
+          product_id: row.product_id,
+          product_name: row.product_name,
+          quantity: row.quantity,
+          subtotal: row.subtotal,
+          product_price: row.product_price,
+        });
+      });
+  
+      res.status(200).json(orders); // Respond with the orders grouped by order_id
+    });
+};

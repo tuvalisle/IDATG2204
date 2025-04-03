@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
+
 // import CreateOrder from './pages/CreateOrder'; // Import CreateOrder component
 
 function App() {
@@ -60,6 +62,7 @@ function App() {
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/order-history" element={<OrderHistoryPage />} />
         {/* {isLoggedIn && (
             <Route
               path="/create-order"

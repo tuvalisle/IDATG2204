@@ -7,5 +7,6 @@ const orderController = require('../controllers/orderController');
 // Define the routes with the correct handler functions
 router.post('/', orderController.createOrder);   // `createOrder` should be a function
 // router.get('/', orderController.getOrders);      // `getOrders` should be a function
+router.get('/history', orderController.getUserOrders);
 
 module.exports = router;

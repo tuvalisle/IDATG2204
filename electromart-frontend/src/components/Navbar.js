@@ -18,6 +18,7 @@ const Navbar = ({ isLoggedIn, user, logOut, cart }) => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/products">Products</Link></li>
             <li><Link to="/cart">Cart ({cartCount})</Link></li>
+            <li><Link to="/order-history">Your Orders</Link></li>
             {/* <li><Link to="/cart">Cart</Link></li> */}
             <li><span>Welcome, {user?.first_name || 'User'}!</span></li>
             <li><button onClick={logOut}>Log Out</button></li>
