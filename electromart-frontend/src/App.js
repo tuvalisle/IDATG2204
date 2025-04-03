@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+// import CreateOrder from './pages/CreateOrder'; // Import CreateOrder component
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -24,8 +25,21 @@ function App() {
   }, []);
 
   // Function to handle adding a product to the cart
+  // const addToCart = (product) => {
+  //   setCart((prevCart) => [...prevCart, product]); // Add product to cart
+  // };
   const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]); // Add product to cart
+    setCart((prevCart) => {
+      const existingProductIndex = prevCart.findIndex((item) => item.product_id === product.product_id);
+  
+      if (existingProductIndex >= 0) {
+        const updatedCart = [...prevCart];
+        updatedCart[existingProductIndex].quantity += 1; // Increment the quantity
+        return updatedCart;
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];  // Initialize quantity as 1
+      }
+    });
   };
 
   // Log out function
@@ -42,10 +56,16 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage products={products} addToCart={addToCart} />}/>
-        <Route path="/cart" element={<CartPage cart={cart} />} />
+        <Route path="/cart" element={<CartPage cart={cart} userId={user?.user_id} />} />
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        {/* {isLoggedIn && (
+            <Route
+              path="/create-order"
+              element={<CreateOrder cart={cart} userId={user?.user_id} />}
+            />
+          )} */}
       </Routes>
     </Router>
   );

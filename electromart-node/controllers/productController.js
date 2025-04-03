@@ -2,7 +2,7 @@ const db = require('../db');  // Assuming you have your DB connection here
 
 // Get all products
 exports.getProducts = (req, res) => {
-  db.query('SELECT * FROM Products', (err, results) => {
+  db.query('SELECT * FROM Product', (err, results) => {
     if (err) {
       console.error('Error fetching products:', err);
       return res.status(500).json({ error: 'Database error' });

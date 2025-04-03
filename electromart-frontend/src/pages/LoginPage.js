@@ -97,39 +97,20 @@ function LoginPage({ setIsLoggedIn, setUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Log the form data to see if it's correctly set
-    console.log("Login form data:", formData);
-
-    // Send login request to the backend
+  
     axios
-      .post("http://localhost:8080/users/login", formData)  // Update with the correct API URL (port 8080)
+      .post("http://localhost:8080/users/login", formData)
       .then((response) => {
-        // Log the response to the console for debugging
-        console.log("Login response:", response.data);
-
-        if (response && response.data) {
-          setSuccess(response.data.message);  // Use the message from response
-          setError(null);
-
-          // Set the login state in the parent component (App.js)
-          setIsLoggedIn(true);
-          setUser({
-            email: formData.email,
-            first_name: response.data.first_name || "User", // Adjust depending on the response data
-          });
-        } else {
-          setError("Unexpected response from server");
-        }
+        // If login is successful, store user_id in localStorage
+        localStorage.setItem("user_id", response.data.user_id);
+  
+        // Continue setting state or performing other actions
+        setIsLoggedIn(true);
+        setUser({ ...response.data });
       })
       .catch((err) => {
-        console.log("Login error:", err);  // Log the error for debugging
-        if (err.response && err.response.data) {
-          setError(err.response.data.error);  // Set the error message from the backend
-        } else {
-          setError("An error occurred during login");
-        }
-        setSuccess(null);
+        console.log("Login error:", err);
+        setError("Invalid email or password");
       });
   };
 
