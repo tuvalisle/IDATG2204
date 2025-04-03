@@ -1,18 +1,17 @@
-const db = require('../db');  // Import the database connection
+const db = require('../db');  // Assuming you have your DB connection here
 
-// Get all products from the database
+// Get all products
 exports.getProducts = (req, res) => {
-  console.log('Fetching products...');
-  // Query the database to retrieve all products
-  db.query('SELECT * FROM Product', (err, results) => {
+  db.query('SELECT * FROM Products', (err, results) => {
     if (err) {
       console.error('Error fetching products:', err);
-      return res.status(500).json({ error: 'Failed to fetch products' });
+      return res.status(500).json({ error: 'Database error' });
     }
-    res.json(results);  // Send the results (products) as the response
+
+    // Respond with the products
+    res.json(results);
   });
 };
-
 
 // Add a new product (ensure it's a function)
 exports.addProduct = (req, res) => {
