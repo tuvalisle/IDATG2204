@@ -336,18 +336,39 @@ function ProductsPage() {
   //   setCart(updatedCart);
   //   localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
   // };
-  const addToCart = (product) => {
-    // Initialize the quantity to 1 when the item is added to the cart
-    const updatedProduct = {
-      ...product,
-      quantity: 1,  // Set quantity to 1 by default when adding to cart
-    };
+  // const addToCart = (product) => {
+  //   // Initialize the quantity to 1 when the item is added to the cart
+  //   const updatedProduct = {
+  //     ...product,
+  //     quantity: 1,  // Set quantity to 1 by default when adding to cart
+  //   };
   
-    // Add the product to the cart
-    const updatedCart = [...cart, updatedProduct];
+  //   // Add the product to the cart
+  //   const updatedCart = [...cart, updatedProduct];
+  //   setCart(updatedCart);
+  //   localStorage.setItem('cart', JSON.stringify(updatedCart));  // Save the updated cart to localStorage
+  // };
+
+  const addToCart = (product) => {
+    // Check if the product already exists in the cart
+    const existingProductIndex = cart.findIndex(item => item.product_id === product.product_id);
+  
+    let updatedCart;
+  
+    if (existingProductIndex !== -1) {
+      // If the product exists, increment its quantity
+      updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity += 1;  // Increment quantity
+    } else {
+      // If it's a new product, add it to the cart with quantity 1
+      updatedCart = [...cart, { ...product, quantity: 1 }];
+    }
+  
+    // Save the updated cart to localStorage and update state
     setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));  // Save the updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
   };
+  
   
   
   
