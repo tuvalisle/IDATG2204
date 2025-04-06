@@ -11,7 +11,7 @@ function OrderHistoryPage() {
 
   useEffect(() => {
     if (!userId) {
-      alert('You must be logged in to view your orders');
+      // alert('You must be logged in to view your orders');
       return;
     }
 

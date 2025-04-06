@@ -6,7 +6,7 @@ exports.register = (req, res) => {
   console.log('Register request received:', req.body);  // Log the incoming data
 
   const { first_name, last_name, email, password, address, phone_number } = req.body;
-
+  console.log(req.body);
   // Validate required fields
   if (!first_name || !last_name || !email || !password || !address || !phone_number) {
     return res.status(400).json({ error: 'All fields are required' });
