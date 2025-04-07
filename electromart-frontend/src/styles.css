@@ -108,53 +108,154 @@ button:hover {
 
 
 /*-------------Cart----------------------------------------*/
-.cart-page {
+/* .cart-page {
     padding: 20px;
   }
   
-  .cart-page h1 {
+.cart-page h1 {
     text-align: center;
-  }
-  
-  .cart-table {
+}
+ 
+.cart-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-  }
-  
-  .cart-table th, .cart-table td {
+}
+ 
+.cart-table th, .cart-table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
-  }
+}
   
-  .cart-table th {
+.cart-table th {
     background-color: #f4f4f4;
-  }
+}
   
-  .cart-table input {
+.cart-table input {
     width: 50px;
     padding: 5px;
     text-align: center;
-  }
+}
   
-  .cart-footer {
+.cart-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-  }
-  
-  .cart-footer button {
+}
+
+.cart-footer button {
     padding: 10px 20px;
     background-color: #079BCF;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
+}
   
-  .cart-footer button:hover {
+.cart-footer button:hover {
     background-color: #007BA5;
-  }
+}
+   */
+
+/* Cart page container */
+.cart-container {
+    width: 65%;  /* Adjust this to your needs */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+  
+/* Table styles */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+  
+.cart-table th, .cart-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-table th {
+    background-color: #f4f4f4;
+}
+  
+.cart-table td {
+    background-color: #fafafa;
+}
+  
+/* Style for the total row */
+.total-row {
+    font-weight: bold;
+    background-color: #f4f4f4;
+}
+  
+/* Total sum row at the bottom */
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+  
+.cart-total .total-label {
+    font-size: 20px;
+}
+  
+.cart-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+  
+/* Button styles */
+.clear-cart-button, .order-button{
+    padding: 12px 30px;
+    background-color: #079BCF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+  
+.clear-cart-button:hover, .order-button:hover {
+    background-color: #007BA5;
+}
+  
+  /* Clear Cart and Order buttons */
+.clear-cart-button {
+    width: 20%; /* Takes up almost half the space */
+}
+  
+.order-button {
+    width: 20%; /* Takes up almost half the space */
+}
+
+.remove-btn {
+    /* padding: 12px 30px; */
+    background-color: #ddd;
+    width: 1.5em;
+    color: white;
+    border: 1px solid #b0b0b0;
+    border-radius: 1em;
+    cursor: pointer;
+    /* font-size: 16px; */
+    transition: background-color 0.3s;
+    padding: 0;
+    margin: 0;
+}
+
+.remove-btn:hover {
+    background-color: #a24444;
+}
   

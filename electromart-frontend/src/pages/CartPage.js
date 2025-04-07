@@ -350,48 +350,108 @@ function CartPage() {
       });
   };
 
+  // return (
+  //   <div className="cart-page">
+  //     <h1>Your Cart</h1>
+  //     {cart.length === 0 ? (
+  //       <p>Your cart is empty</p>
+  //     ) : (
+  //       <div>
+  //         <table className="cart-table">
+  //           <thead>
+  //             <tr>
+  //               <th>Product Name</th>
+  //               <th>Price</th>
+  //               <th>Quantity</th>
+  //               <th>Total</th>
+  //               <th>Action</th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>
+  //             {cart.map((item) => (
+  //               <tr key={item.product_id}>
+  //                 <td>{item.name}</td>
+  //                 <td>${parseFloat(item.price).toFixed(2)}</td> {/* Ensure the price is treated as a number */}
+  //                 <td>
+  //                   <input
+  //                     type="number"
+  //                     value={item.quantity}
+  //                     min="1"
+  //                     onChange={(e) => handleQuantityChange(item.product_id, e.target.value)}
+  //                   />
+  //                 </td>
+  //                 <td>${(parseFloat(item.price) * item.quantity).toFixed(2)}</td> {/* Convert to number */}
+  //                 <td>
+  //                   <button onClick={() => handleRemoveItem(item.product_id)}>Remove</button>
+  //                 </td>
+  //               </tr>
+  //             ))}
+  //           </tbody>
+  //         </table>
+  //         <div className="cart-footer">
+  //           <p>Total Price: ${getTotalPrice()}</p>
+  //           <button onClick={handleClearCart}>Clear Cart</button>
+  //           <button onClick={handleCreateOrder}>Create Order</button> {/* Create Order Button */}
+  //         </div>
+  //       </div>
+  //     )}
+  //   </div>
+  // );
+
   return (
-    <div className="cart-page">
+    <div className="cart-container">
       <h1>Your Cart</h1>
       {cart.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p>Your cart is empty.</p>
       ) : (
         <div>
+          {/* Cart table */}
           <table className="cart-table">
             <thead>
               <tr>
-                <th>Product Name</th>
+                <th>Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                <th>Action</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {cart.map((item) => (
-                <tr key={item.product_id}>
+              {cart.map((item, index) => (
+                <tr key={index}>
                   <td>{item.name}</td>
-                  <td>${parseFloat(item.price).toFixed(2)}</td> {/* Ensure the price is treated as a number */}
+                  <td>${parseFloat(item.price).toFixed(2)}</td>
                   <td>
                     <input
                       type="number"
                       value={item.quantity}
                       min="1"
-                      onChange={(e) => handleQuantityChange(item.product_id, e.target.value)}
+                      onChange={(e) => handleQuantityChange(item.product_id, parseInt(e.target.value))}
                     />
                   </td>
-                  <td>${(parseFloat(item.price) * item.quantity).toFixed(2)}</td> {/* Convert to number */}
+                  <td>${(parseFloat(item.price) * item.quantity).toFixed(2)}</td>
                   <td>
-                    <button onClick={() => handleRemoveItem(item.product_id)}>Remove</button>
+                    <button class='remove-btn' onClick={() => handleRemoveItem(item.product_id)}>x</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="cart-footer">
-            <p>Total Price: ${getTotalPrice()}</p>
-            <button onClick={handleClearCart}>Clear Cart</button>
-            <button onClick={handleCreateOrder}>Create Order</button> {/* Create Order Button */}
+
+          {/* Total price row */}
+          <div className="cart-total">
+            <span className="total-label">Total:</span>
+            <span>${getTotalPrice()}</span>
+          </div>
+
+          {/* Buttons */}
+          <div className="cart-buttons">
+            <button className="clear-cart-button" onClick={handleClearCart}>
+              Clear Cart
+            </button>
+            <button className="order-button" onClick={handleCreateOrder}>
+              Order
+            </button>
           </div>
         </div>
       )}
