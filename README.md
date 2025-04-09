@@ -58,7 +58,7 @@ npm install express mysql2 cors bcryptjs react-scripts react-router-dom react-do
 2. Create a new database named `electromart`
 3. Import the file `electromart.sql`  //LEGG TIL RIKTIG FILBANE
 
-### 4. Change to you setup (if needed)
+### 4. Change the database setup (if needed)
 Update database connection details in the db.js file to match your local MySQL setup, if you have another credentials than given below:
 ```bash
 const db = mysql.createConnection({
