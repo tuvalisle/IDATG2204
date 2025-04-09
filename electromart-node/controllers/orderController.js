@@ -247,42 +247,81 @@ exports.getUserOrders = (req, res) => {
     });
 };
 
-// Delete order
-exports.deleteOrder = (req, res) => {
-  const { order_id } = req.params;
+// // Delete order
+// exports.deleteOrder = (req, res) => {
+//   const { order_id } = req.params;
 
-  // Begin a transaction to ensure both orders and orderitems are deleted
-  db.beginTransaction((err) => {
+//   // Begin a transaction to ensure both orders and orderitems are deleted
+//   db.beginTransaction((err) => {
+//     if (err) {
+//       return res.status(500).json({ error: 'Error starting transaction' });
+//     }
+
+//     // First, delete items from the orderitem table
+//     db.query('DELETE FROM orderitem WHERE order_id = ?', [order_id], (err, result) => {
+//       if (err) {
+//         return db.rollback(() => {
+//           res.status(500).json({ error: 'Error deleting order items' });
+//         });
+//       }
+
+//       // Then, delete the order from the orders table
+//       db.query('DELETE FROM orders WHERE order_id = ?', [order_id], (err, result) => {
+//         if (err) {
+//           return db.rollback(() => {
+//             res.status(500).json({ error: 'Error deleting order' });
+//           });
+//         }
+
+//         // Commit the transaction
+//         db.commit((err) => {
+//           if (err) {
+//             return db.rollback(() => {
+//               res.status(500).json({ error: 'Error committing transaction' });
+//             });
+//           }
+
+//           res.status(200).json({ message: 'Order and items deleted successfully' });
+//         });
+//       });
+//     });
+//   });
+// };
+
+
+// Delete an order and its items
+exports.deleteOrder = (req, res) => {
+  const orderId = req.params.order_id;
+
+  db.query('SELECT status FROM orders WHERE order_id = ?', [orderId], (err, results) => {
     if (err) {
-      return res.status(500).json({ error: 'Error starting transaction' });
+      return res.status(500).json({ error: 'Error checking order status' });
     }
 
-    // First, delete items from the orderitem table
-    db.query('DELETE FROM orderitem WHERE order_id = ?', [order_id], (err, result) => {
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    const orderStatus = results[0].status;
+
+    if (orderStatus !== 'pending') {
+      return res.status(400).json({ error: 'Only pending orders can be deleted.' });
+    }
+
+    // First, delete items from orderItem table
+    db.query('DELETE FROM orderitem WHERE order_id = ?', [orderId], (err) => {
       if (err) {
-        return db.rollback(() => {
-          res.status(500).json({ error: 'Error deleting order items' });
-        });
+        return res.status(500).json({ error: 'Error deleting order items' });
       }
 
       // Then, delete the order from the orders table
-      db.query('DELETE FROM orders WHERE order_id = ?', [order_id], (err, result) => {
+      db.query('DELETE FROM orders WHERE order_id = ?', [orderId], (err) => {
         if (err) {
-          return db.rollback(() => {
-            res.status(500).json({ error: 'Error deleting order' });
-          });
+          return res.status(500).json({ error: 'Error deleting order' });
         }
 
-        // Commit the transaction
-        db.commit((err) => {
-          if (err) {
-            return db.rollback(() => {
-              res.status(500).json({ error: 'Error committing transaction' });
-            });
-          }
-
-          res.status(200).json({ message: 'Order and items deleted successfully' });
-        });
+        // If both deletions were successful, send a success response
+        res.status(200).json({ message: 'Order deleted successfully' });
       });
     });
   });

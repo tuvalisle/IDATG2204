@@ -91,22 +91,40 @@ function OrderHistoryPage() {
   }, []);
 
   // Handle order deletion
+  // const handleDeleteOrder = (order_id) => {
+  //   // Confirm if the user really wants to delete the order
+  //   if (window.confirm('Are you sure you want to delete this order?')) {
+  //     // Make DELETE request to the backend
+  //     axios
+  //       .delete(`http://localhost:8080/orders/${order_id}`)
+  //       .then((response) => {
+  //         // Remove deleted order from state
+  //         setOrders(orders.filter(order => order.order_id !== order_id));
+  //       })
+  //       .catch((err) => {
+  //         console.error('Error deleting order', err);
+  //         alert('Error deleting order');
+  //       });
+  //   }
+  // };
+
   const handleDeleteOrder = (order_id) => {
-    // Confirm if the user really wants to delete the order
-    if (window.confirm('Are you sure you want to delete this order?')) {
-      // Make DELETE request to the backend
-      axios
-        .delete(`http://localhost:8080/orders/${order_id}`)
-        .then((response) => {
-          // Remove deleted order from state
-          setOrders(orders.filter(order => order.order_id !== order_id));
-        })
-        .catch((err) => {
-          console.error('Error deleting order', err);
-          alert('Error deleting order');
-        });
-    }
+    axios
+      .delete(`http://localhost:8080/orders/${order_id}`)
+      .then((response) => {
+        console.log('Order deleted successfully:', response.data);
+        // Remove the order from the UI
+        setOrders(orders.filter((order) => order.order_id !== order_id));
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          alert(err.response.data.error);  // Show the error message returned by the server
+        } else {
+          console.error('Error deleting order:', err);
+        }
+      });
   };
+
 
   return (
     <div className="order-history-container">
@@ -117,7 +135,8 @@ function OrderHistoryPage() {
         <div className='history-wrapper'>
           {orders.map((order) => (
             <div key={order.order_id} className="order-card">
-              <h3>Order #{order.order_id} - {order.order_date}</h3>
+              <h3>Order #{order.order_id} - {formatDate(order.order_date)}</h3>
+              <td>Status: {order.status}</td>
               <table className="order-table">
                 <thead>
                   <tr>
