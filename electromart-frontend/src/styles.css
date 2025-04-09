@@ -206,7 +206,7 @@ button:hover {
 .order-card {
     margin-bottom: 4em;
     margin-right: 4em;
-    width: 25em;
+    width: 24em;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -246,4 +246,20 @@ button:hover {
     font-size: 22px;
     color: #333;
 }
+
+/* Button Styling */
+.btn-delete {
+    background-color: #b54747;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+  
+.btn-delete:hover {
+    background-color: #7d3f3f;
+}
+  
   

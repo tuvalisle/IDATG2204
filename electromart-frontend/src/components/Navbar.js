@@ -122,9 +122,9 @@ const Navbar = ({ isLoggedIn, user, logOut }) => {
         ) : (
           <>
             <li><Link to="/">Home</Link></li>
-            <li class='nav-item'><Link to="/products">Products</Link></li>
-            <li class='nav-item'><Link to="/cart">Cart</Link></li>
-            <li class='nav-item'><Link to="/order-history">Your Orders</Link></li>
+            <li className='nav-item'><Link to="/products">Products</Link></li>
+            <li className='nav-item'><Link to="/cart">Cart</Link></li>
+            <li className='nav-item'><Link to="/order-history">Your Orders</Link></li>
             <li><button onClick={() => {
               localStorage.removeItem("user_id");
               localStorage.removeItem("user_name");

@@ -22,7 +22,6 @@ app.use(express.json());
 
 // Use routes
 app.use('/users', userRoutes);
-console.log('User routes loaded');
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
 
