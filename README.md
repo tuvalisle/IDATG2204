@@ -38,7 +38,7 @@ Before starting, make sure you have the following installed:
 ### 1. **Clone the Repository**
 Clone the repository to your local machine.
 ```bash
-git clone <backend-repository-url>
+git clone https://<git_username>:<access_token>@github.com/tuvalisle/IDATG2204.git
 cd IDATG2204
 ```
 
