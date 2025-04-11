@@ -2,65 +2,85 @@
 Semester Project: E-Commerce Website Database Implementation
 # ElectroMart API
 
-ElectroMart API er en RESTful API bygget med Flask og MySQL for å administrere produkter, brukere og ordrer i en e-handelsapplikasjon.
+**ElectroMart API** is a RESTful API built with **Node.js** and **Express** to manage products, users, and orders in an e-commerce platform. It uses **MySQL** for database management, handling operations like user registration and login (secured with **bcryptjs**), product retrieval, and order creation. The API allows users to interact with the platform by retrieving product data, managing their shopping cart, and placing orders.
 
-## 🛠 Teknologier brukt
-- **Flask** – Web-rammeverk for Python
-- **MySQL** (MariaDB) – Relasjonsdatabase
-- **JWT** (JSON Web Token) – Autentisering
-- **bcrypt** – Hashing av passord
-- **Postman** – API-testing
+## 🛠 Technologies used
+### 1. Frontend:
+- **React**: The core JavaScript library used to build the user interface, enabling a dynamic, interactive, and component-based architecture.
+- **React Router**: A library used for handling routing and navigation between different pages (e.g., Home, Products, Cart, Orders, etc.).
+- **CSS**: Used to style the frontend, ensuring responsive design and visual consistency.
+- **Axios**: A promise-based HTTP client used to make API requests to the backend server for interacting with resources like products, orders, and user data.
+- **LocalStorage**: A browser feature used to store cart data and user login state persistently across sessions.
+  
+### 2. Backend:
+- **Node.js**: A JavaScript runtime environment that allows the backend to run JavaScript code server-side.
+- **Express.js**: A web application framework for Node.js, used to handle routing and HTTP requests on the server.
+- **MySQL**: A relational database management system for storing product data, user information, orders, and other essential business data.
+- **bcrypt.js**: A library used to hash user passwords securely before storing them in the database, ensuring password security during authentication.
+
+### 3. API Testing:
+- **Postman**: A tool used for testing APIs by sending HTTP requests to the backend. Postman allows for efficient testing of endpoints (e.g., user login, product retrieval, order creation) and validating responses from the server during development.
+
+### 4. Version Control:
+- **Git**: A version control system used to track changes in the project and enable collaboration between team members.
+
 
 ---
 
-## 📥 **Installasjon & Kjøring**
+## Running ElectroMart - Step-by-Step Setup
 
-### 1️⃣ **Klon repoet og gå til mappen**
+### Prerequisites:
+Before starting, make sure you have the following installed:
+- **Node.js** (with npm) - For running both the frontend and backend servers.
+- **MySQL** - For setting up the database.
+
+
+### 1. **Clone the Repository**
+Clone the repository to your local machine.
 ```bash
-git clone https://github.com/ditt-repo/electromart-api.git
-cd electromart-api
+git clone https://<git_username>:<access_token>@github.com/tuvalisle/IDATG2204.git
+cd IDATG2204
 ```
 
-### 2️⃣ **Sett opp et virtuelt miljø og installer avhengigheter**
+### 2. **Install Dependencies**
+Navigate to the backend folder, electromart-node, and install the following libraries:
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # (Windows: venv\Scripts\activate)
-pip install -r requirements.txt
+npm install express mysql2 cors bcryptjs axios
 ```
 
-### 3️⃣ **Start MySQL og opprett databasen**
-Logg inn på MySQL og kjør:
-```sql
-CREATE DATABASE electromart;
-USE electromart;
-```
-Importer skjemaet:
+Navigate to the frontend folder, electromart-frontend, and install the following libraries:
 ```bash
-mysql -u root -p electromart < database.sql
+npm install express mysql2 cors bcryptjs react-scripts react-router-dom react-dom
 ```
-👉 Import for andre:
-De som skal importere gjør dette:
 
-Åpne phpMyAdmin
-Opprett en ny tom database med samme navn (electromart)
-Gå til Import
-Velg .sql-filen du sendte
-Klikk "Utfør"
-
-
-## 📦 Import database (for dev setup)
-
+### 3. Set up the database
 1. Open phpMyAdmin or terminal
 2. Create a new database named `electromart`
-3. Import the file `backend/db/electromart.sql`
+3. Import the file `electromart.sql`  //LEGG TIL RIKTIG FILBANE
 
-
-### 4️⃣ **Start Flask-serveren**
+### 4. Change the database setup (if needed)
+Update database connection details in the db.js file to match your local MySQL setup, if you have another credentials than given below:
 ```bash
-python app.py
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",      // your MySQL username
+  password: "",      // your MySQL password
+  database: "electromart"
+});
 ```
 
-Backend kjører nå på **`http://127.0.0.1:5000`** 🎉
+### 5. Start the backend server
+Navigate to the backend folder, electromart-node, and type in the following:
+```bash
+node server.js
+```
+
+### 6. Start the frontend server
+Navigate to the frontend folder, electromart-frontend, and type in the following:
+```bash
+npm start
+```
+
 
 ---
 
