@@ -136,7 +136,7 @@ function OrderHistoryPage() {
           {orders.map((order) => (
             <div key={order.order_id} className="order-card">
               <h3>Order #{order.order_id} - {formatDate(order.order_date)}</h3>
-              <td>Status: {order.status}</td>
+              <p>Status: {order.status}</p>
               <table className="order-table">
                 <thead>
                   <tr>
@@ -148,7 +148,7 @@ function OrderHistoryPage() {
                 </thead>
                 <tbody>
                   {order.items.map((item) => (
-                    <tr key={item.order_item_id}>
+                    <tr key={`${order.order_id}-${item.product_id}`}>
                       <td>{item.product_name}</td>
                       <td>${item.product_price}</td>
                       <td>{item.quantity}</td>

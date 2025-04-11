@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './styles.css';
 import './AuthPage.css';
@@ -11,10 +10,8 @@ import ProductsPage from "./pages/ProductPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CartPage from "./pages/CartPage";
-// import CheckoutPage from "./pages/CheckoutPage";
 import OrderHistoryPage from "./pages/OrderHistoryPage";
 
-// import CreateOrder from './pages/CreateOrder'; // Import CreateOrder component
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -34,10 +31,6 @@ function App() {
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
 
-  // Function to handle adding a product to the cart
-  // const addToCart = (product) => {
-  //   setCart((prevCart) => [...prevCart, product]); // Add product to cart
-  // };
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProductIndex = prevCart.findIndex((item) => item.product_id === product.product_id);

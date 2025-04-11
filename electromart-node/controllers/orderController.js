@@ -204,11 +204,11 @@ exports.getUserOrders = (req, res) => {
   
     const query = `
       SELECT o.order_id, o.order_date, o.total_amount, o.status, 
-             oi.order_item_id, oi.product_id, oi.quantity, oi.subtotal, 
+             oi.product_id, oi.quantity, oi.subtotal, 
              p.name as product_name, p.price as product_price
       FROM orders o
       LEFT JOIN orderitem oi ON o.order_id = oi.order_id
-      LEFT JOIN product p ON oi.product_id = p.product_id  -- Correct table name 'product'
+      LEFT JOIN product p ON oi.product_id = p.product_id
       WHERE o.user_id = ?
     `;
   
@@ -233,14 +233,31 @@ exports.getUserOrders = (req, res) => {
           orders.push(order);
         }
   
-        order.items.push({
-          order_item_id: row.order_item_id,
-          product_id: row.product_id,
-          product_name: row.product_name,
-          quantity: row.quantity,
-          subtotal: row.subtotal,
-          product_price: row.product_price,
-        });
+      //   order.items.push({
+      //     order_item_id: row.order_item_id,
+      //     product_id: row.product_id,
+      //     product_name: row.product_name,
+      //     quantity: row.quantity,
+      //     subtotal: row.subtotal,
+      //     product_price: row.product_price,
+      //   });
+
+      // Add order item using only order_id and product_id as unique identifiers
+        const existingItem = order.items.find(item => item.product_id === row.product_id);
+        if (existingItem) {
+          // If the item already exists (same product_id), we just update the quantity and subtotal
+          existingItem.quantity += row.quantity;
+          existingItem.subtotal += row.subtotal;
+        } else {
+          // Otherwise, create a new order item
+          order.items.push({
+            product_id: row.product_id,
+            product_name: row.product_name,
+            quantity: row.quantity,
+            subtotal: row.subtotal,
+            product_price: row.product_price,
+          });
+        }
       });
   
       res.status(200).json(orders); // Respond with the orders grouped by order_id
