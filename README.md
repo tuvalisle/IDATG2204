@@ -89,14 +89,14 @@ npm start
 ### 🔹 **Autentisering**
 | Metode | Endepunkt         | Beskrivelse                |
 |--------|-------------------|----------------------------|
-| POST   | `/users/register` | Registrer ny bruker        |
-| POST   | `/users/login`    | Logg inn, returnerer JWT   |
+| POST   | `/users/register` | Register a new user        |
+| POST   | `/users/login`    | User login                 |
 
 ### 🔹 **Produkter**
-| Metode | Endepunkt       | Beskrivelse                   |
-|--------|---------------|------------------------------|
-| GET    | `/products`   | Hent alle produkter         |
-| POST   | `/products`   | Legg til nytt produkt       |
+| Metode | Endepunkt        | Beskrivelse                |
+|--------|------------------|----------------------------|
+| GET    | `/products`      | Get all products           |
+| POST   | `/products`      | Legg til nytt produkt      |
 | PUT    | `/products/<id>` | Oppdater et produkt        |
 | DELETE | `/products/<id>` | Slett et produkt           |
 
