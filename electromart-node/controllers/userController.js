@@ -13,7 +13,7 @@ exports.register = (req, res) => {
   }
 
   // Check if email or phone number already exists in the database
-  db.query('SELECT * FROM Users WHERE email = ? OR phone_number = ?', [email, phone_number], (err, results) => {
+  db.query('SELECT * FROM users WHERE email = ? OR phone_number = ?', [email, phone_number], (err, results) => {
     if (err) {
       console.error('Error checking existing users:', err);
       return res.status(500).json({ error: 'Database error' });
@@ -31,7 +31,7 @@ exports.register = (req, res) => {
       }
 
       // Insert the new user into the database (hashed password)
-      const query = 'INSERT INTO Users (first_name, last_name, email, password, address, phone_number) VALUES (?, ?, ?, ?, ?, ?)';
+      const query = 'INSERT INTO users (first_name, last_name, email, password, address, phone_number) VALUES (?, ?, ?, ?, ?, ?)';
       db.query(query, [first_name, last_name, email, hashedPassword, address, phone_number], (err, result) => {
         if (err) {
           console.error('Error registering user:', err);
@@ -58,7 +58,7 @@ exports.login = (req, res) => {
   }
 
   // Find the user by email
-  db.query('SELECT * FROM Users WHERE email = ?', [email], (err, results) => {
+  db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
     if (err) {
       console.error('Error querying database:', err);
       return res.status(500).json({ error: 'Database error' });

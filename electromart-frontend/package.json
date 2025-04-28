@@ -8,9 +8,9 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jwt-simple": "^0.5.6",
-    "mysql2": "^3.14.0",
+    "mysql2": "^3.14.1",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.4.1",
+    "react-router-dom": "^7.5.2",
     "react-scripts": "^5.0.1"
   },
   "scripts": {
