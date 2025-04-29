@@ -2,7 +2,7 @@
 Semester Project: E-Commerce Website Database Implementation
 # ElectroMart API
 
-**ElectroMart API** is a RESTful API built with **Node.js** and **Express** to manage products, users, and orders in an e-commerce platform. It uses **MySQL** for database management, handling operations like user registration and login (secured with **bcryptjs**), product retrieval, and order creation. The API allows users to interact with the platform by retrieving product data, managing their shopping cart, and placing orders.
+ElectroMart API is a RESTful API built with Node.js and Express to manage products, users, and orders in an e-commerce platform. It uses MySQL for database management, handling operations like user registration and login (secured with bcryptjs), product retrieval, and order creation. The API allows users to interact with the platform by retrieving product data, managing their shopping cart, and placing orders.
 
 ---
 
