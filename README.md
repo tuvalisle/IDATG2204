@@ -60,6 +60,6 @@ Navigate to the frontend folder, electromart-frontend, and type in the following
 npm start
 ```
 
-Now you should be able to use our electromart webpage!
+Now you should be able to use our ElectroMart webpage!
 
 
