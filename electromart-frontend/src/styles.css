@@ -63,7 +63,7 @@ button {
 }
   
 button:hover {
-    background-color: #337175;
+    background-color: rgb(51, 113, 117);
 }
   
   /* Logged In User */
